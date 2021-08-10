@@ -5,8 +5,7 @@
   "main": "Tree.js",
   "type": "module",
   "scripts": {
-    "test": "mocha --require @babel/register",
-    "dev": "node ./src/MoveTree.js"
+    "test": "mocha --require @babel/register"
   },
   "author": "",
   "license": "ISC",
