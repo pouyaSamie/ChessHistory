@@ -10,7 +10,7 @@ each tree node contains move name and actual move that generated with [Chess.js]
 
 ## Usage
 
-```let tree = new Tree();
+```let tree = new MoveTree();
       const m1 = tree.addMove("e4");
       tree.addMove("e6");
       tree.addMove("d3");
@@ -47,7 +47,7 @@ root
 each node is an object with name and move so you can get the move like this:
 
 ```
-      let tree = new Tree();
+      let tree = new MoveTree();
       const m1 = tree.addMove("e4");
       console.log(m1.data);
 ```
