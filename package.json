@@ -1,0 +1,15 @@
+{
+  "name": "tree",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Tree.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chess.js": "^0.12.0"
+  }
+}
