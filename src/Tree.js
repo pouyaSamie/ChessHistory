@@ -166,7 +166,7 @@ export default class Tree {
     let str = "\n";
 
     node.children.forEach((child) => {
-      str += `${" ".repeat(spaceCount)}(${child.identifier})${
+      str += `${" ".repeat(spaceCount)}|(${child.identifier})${
         child.name
       }${this.#getTreeString(child, spaceCount + 2)}`;
     });
@@ -224,17 +224,6 @@ export default class Tree {
     return branch;
   }
 
-  findBranchForNode(node) {
-    let branch = [];
-    branch.push(node);
-    while (node.parent) {
-      branch.push(node.parent);
-      node = node.parent;
-    }
-
-    return branch;
-  }
-
   findAllNodesByName(name) {
     const children = [];
 
@@ -245,5 +234,16 @@ export default class Tree {
     });
 
     return children;
+  }
+
+  getAllParents() {
+    let parents = [];
+    let node = this;
+    while (node.parentNode.name != "root") {
+      parents.push(node.parentNode);
+      node = this.parentNode;
+    }
+
+    return parents;
   }
 }

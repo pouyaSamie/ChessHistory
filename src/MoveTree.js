@@ -4,19 +4,23 @@ import Tree from "./Tree.js";
 export default class MoveTree {
   constructor() {
     this.MoveTree = new Tree("root");
+    this.chess = null;
   }
 
   addMove(notation, parent) {
     this.chess = new Chess();
+
     let moveToPlay = [];
-    if (parent) return this.addVariation(notation, parent);
+    if (parent) {
+      return this.addVariation(notation, parent);
+    } else {
+      moveToPlay = this.getMainMoves();
+      let newMove = this.createNewChessMove(notation, moveToPlay);
+      if (!newMove) throw new "Invalid Move"();
+      let newNode = this.MoveTree.createChildNode(notation, newMove);
 
-    moveToPlay = this.getMainMoves();
-    let newMove = this.createNewChessMove(notation, moveToPlay);
-    if (!newMove) throw new "Invalid Move"();
-    let newNode = this.MoveTree.createChildNode(notation, newMove);
-
-    return newNode;
+      return newNode;
+    }
   }
 
   getMainMoves() {
@@ -30,7 +34,7 @@ export default class MoveTree {
   getVariation(id) {
     let children = [];
     const node = this.MoveTree.findNodeById(id);
-    if (!node) throw new "Move not found"();
+    if (!node) throw new Error("Move not found");
 
     node.children.forEach((item) => {
       children.push(item);
@@ -40,19 +44,37 @@ export default class MoveTree {
 
   addVariation(notation, parent) {
     var moveToPlay = this.getBranch(parent);
+
     let newMove = this.createNewChessMove(notation, moveToPlay);
+
     return parent.createChildNode(notation, newMove);
   }
   getBranch(node) {
-    return this.MoveTree.findBranchForNode(node);
+    const branch = node.children;
+    let parents = node.getAllParents();
+    parents.forEach((p) => {
+      branch.push(p);
+    });
+
+    branch.reverse().push(node);
+    return branch.reverse();
   }
+
   pgn() {
+    return this.chess.pgn();
+  }
+
+  print() {
     return this.MoveTree.print();
   }
   createNewChessMove(newNotation, Moves) {
-    for (const index in Moves) {
-      this.chess.move(Moves[index].name, { sloppy: true });
-    }
-    return this.chess.move(newNotation);
+    Moves.forEach((move) => {
+      this.chess.move(move.name, { sloppy: true });
+    });
+
+    var newMove = this.chess.move(newNotation);
+    if (!newMove) throw new Error("Invalid Move");
+
+    return newMove;
   }
 }
