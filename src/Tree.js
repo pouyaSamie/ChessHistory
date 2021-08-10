@@ -31,6 +31,9 @@ export default class Tree {
   get name() {
     return this.#name;
   }
+  get data() {
+    return this.#data;
+  }
 
   set name(newName) {
     if (!newName || typeof newName !== "string" || !newName.trim().length) {
@@ -73,11 +76,10 @@ export default class Tree {
     return this.#children.size;
   }
 
-  createChildNode(name) {
-    const newNode = new Tree(name);
+  createChildNode(name, data) {
+    const newNode = new Tree(name, data);
     this.#children.set(newNode.identifier, newNode);
     newNode.parentNode = this;
-
     return newNode;
   }
 
@@ -210,9 +212,20 @@ export default class Tree {
     return foundNode;
   }
 
-  findBranch(id) {
+  findBranchById(id) {
     let branch = [];
     let node = this.findNodeById(id);
+    branch.push(node);
+    while (node.parent) {
+      branch.push(node.parent);
+      node = node.parent;
+    }
+
+    return branch;
+  }
+
+  findBranchForNode(node) {
+    let branch = [];
     branch.push(node);
     while (node.parent) {
       branch.push(node.parent);
@@ -232,11 +245,5 @@ export default class Tree {
     });
 
     return children;
-  }
-
-  getChildrenNodes(name) {
-    let node = this.findNodeByName(name);
-    if (!node) return [];
-    return node.#children;
   }
 }

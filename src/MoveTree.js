@@ -1,7 +1,7 @@
 import { Chess } from "chess.js";
 import Tree from "./Tree.js";
 
-class MoveTree {
+export default class MoveTree {
   constructor() {
     this.MoveTree = new Tree("root");
   }
@@ -9,33 +9,50 @@ class MoveTree {
   addMove(notation, parent) {
     this.chess = new Chess();
     let moveToPlay = [];
-    if (parent) this.addVariation(notation, parent);
+    if (parent) return this.addVariation(notation, parent);
 
     moveToPlay = this.getMainMoves();
-    for (const m in moveToPlay) {
-      var move = this.chess.move(m);
-    }
-    let newMove = this.chess.move(notation);
+    let newMove = this.createNewChessMove(notation, moveToPlay);
     if (!newMove) throw new "Invalid Move"();
-    return newMove;
+    let newNode = this.MoveTree.createChildNode(notation, newMove);
+
+    return newNode;
   }
 
   getMainMoves() {
-    return this.tree.getChildrenNodes("root");
+    let children = [];
+    this.MoveTree.children.forEach((item) => {
+      children.push(item);
+    });
+    return children;
   }
 
-  addVariation(notation, parent) {}
-  getBranch() {}
+  getVariation(id) {
+    let children = [];
+    const node = this.MoveTree.findNodeById(id);
+    if (!node) throw new "Move not found"();
+
+    node.children.forEach((item) => {
+      children.push(item);
+    });
+    return children;
+  }
+
+  addVariation(notation, parent) {
+    var moveToPlay = this.getBranch(parent);
+    let newMove = this.createNewChessMove(notation, moveToPlay);
+    return parent.createChildNode(notation, newMove);
+  }
+  getBranch(node) {
+    return this.MoveTree.findBranchForNode(node);
+  }
+  pgn() {
+    return this.MoveTree.print();
+  }
+  createNewChessMove(newNotation, Moves) {
+    for (const index in Moves) {
+      this.chess.move(Moves[index].name, { sloppy: true });
+    }
+    return this.chess.move(newNotation);
+  }
 }
-
-function test() {
-  //    let chess = new Chess()
-  let tree = new Tree("root");
-  tree.createChildNode("e2");
-  let node = tree.createChildNode("e4");
-  tree.appendChildNode(new Tree("Nf3"));
-
-  tree.print();
-}
-
-test();
