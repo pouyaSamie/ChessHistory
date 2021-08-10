@@ -27,7 +27,6 @@ console.log(tree.pgn()); // not completed it just prints the main moves
 ```
 
 ```
-
 # result:
 root
   |(1628625486680)e4
@@ -41,7 +40,6 @@ root
   |(1628625486684)Nd2
 
   1. e4 d5 2. f3 e6 3. Ne2
-
 ```
 
 ## Get move data
