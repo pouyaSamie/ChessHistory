@@ -6,7 +6,7 @@ you can use it to create chess moves and store theme in a tree.
 
 each tree node contains move name and actual move that generated with [Chess.js](https://github.com/jhlywa/chess.js/blob/master/README.md) library
 
-# this library is still under development
+# This library is still under development
 
 ## Usage
 
