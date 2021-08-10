@@ -19,8 +19,6 @@ describe("MoveTree", function () {
     it("should add Move in main line and add variation ", function () {
       let tree = new Tree();
       const m1 = tree.addMove("e4");
-      console.log(m1.data);
-
       tree.addMove("e6");
       tree.addMove("d3");
       tree.addMove("d5");
@@ -37,8 +35,6 @@ describe("MoveTree", function () {
     it("should get variation of a move ", function () {
       let tree = new Tree();
       const m1 = tree.addMove("e4");
-      console.log(m1.data);
-
       tree.addMove("e6");
       tree.addMove("d3");
       tree.addMove("d5");
@@ -51,6 +47,18 @@ describe("MoveTree", function () {
 
       let variations = tree.getVariation(m1.identifier);
       assert.strictEqual(variations[2].name, "e6");
+    });
+  });
+
+  describe("#finMoveById()", function () {
+    it("should finds move by id ", function () {
+      let tree = new Tree();
+      tree.addMove("e4");
+      const m1 = tree.addMove("e6");
+      tree.addMove("d3");
+
+      let foundNode = tree.findMoveById(m1.identifier);
+      assert.strictEqual(foundNode.name, "e6");
     });
   });
 });

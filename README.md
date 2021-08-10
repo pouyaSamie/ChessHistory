@@ -58,6 +58,19 @@ console.log(m1.data);
 
 ```
 
+## Find move by it's unique Identifier
+
+each node has unique identifier that you can use `findMoveById` method to get that movoe
+
+```javascript
+let tree = new Tree();
+tree.addMove("e4");
+const m1 = tree.addMove("e6");
+tree.addMove("d3");
+
+let foundNode = tree.findMoveById(m1.identifier);
+```
+
 ## Run tests
 
 - clone repository

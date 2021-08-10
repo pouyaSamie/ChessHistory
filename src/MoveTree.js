@@ -31,6 +31,10 @@ export default class MoveTree {
     return children;
   }
 
+  findMoveById(id) {
+    return this.MoveTree.findNodeById(id);
+  }
+
   getVariation(id) {
     let children = [];
     const node = this.MoveTree.findNodeById(id);
