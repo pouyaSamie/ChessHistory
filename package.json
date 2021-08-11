@@ -5,7 +5,7 @@
   "main": "Tree.js",
   "type": "module",
   "scripts": {
-    "test": "mocha --require @babel/register",
+    "test": "mocha  --recursive --require @babel/register",
     "build": "rollup -c --environment INCLUDE_DEPS,BUILD:production"
   },
   "author": "pouya.samie@gmail.com",
