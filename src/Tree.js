@@ -13,26 +13,26 @@ const uniqueId = (() => {
 })();
 
 export default class Tree {
-  #children = new Map();
-  #parent = null;
-  #id = uniqueId();
-  #name;
-  #data = null;
+  _children = new Map();
+  _parent = null;
+  _id = uniqueId();
+  _name;
+  _data = null;
 
   constructor(name, data) {
     if (!name || typeof name !== "string" || !name.trim().length) {
       throw new Error("Name must be a non-empty String");
     }
 
-    this.#name = name;
-    this.#data = data;
+    this._name = name;
+    this._data = data;
   }
 
   get name() {
-    return this.#name;
+    return this._name;
   }
   get data() {
-    return this.#data;
+    return this._data;
   }
 
   set name(newName) {
@@ -40,19 +40,19 @@ export default class Tree {
       throw new Error("Cannot change name.Name must be a non-empty String");
     }
 
-    this.#name = newName;
+    this._name = newName;
   }
 
   get identifier() {
-    return this.#id;
+    return this._id;
   }
 
   get children() {
-    return Array.from(this.#children.values());
+    return Array.from(this._children.values());
   }
 
   get parentNode() {
-    return this.#parent;
+    return this._parent;
   }
 
   set parentNode(newParent) {
@@ -60,11 +60,11 @@ export default class Tree {
       newParent !== this.parentNode &&
       (newParent === null || newParent instanceof Tree)
     ) {
-      if (this.#parent) {
-        this.#parent.removeChildNode(this);
+      if (this._parent) {
+        this._parent.removeChildNode(this);
       }
 
-      this.#parent = newParent;
+      this._parent = newParent;
 
       if (newParent) {
         newParent.appendChildNode(this);
@@ -73,19 +73,19 @@ export default class Tree {
   }
 
   get childrenCount() {
-    return this.#children.size;
+    return this._children.size;
   }
 
   createChildNode(name, data) {
     const newNode = new Tree(name, data);
-    this.#children.set(newNode.identifier, newNode);
+    this._children.set(newNode.identifier, newNode);
     newNode.parentNode = this;
     return newNode;
   }
 
   hasChildNode(needle) {
     if (needle instanceof Tree) {
-      return this.#children.has(needle.identifier);
+      return this._children.has(needle.identifier);
     }
 
     for (let child of this.children) {
@@ -119,7 +119,7 @@ export default class Tree {
       parent = parent.parentNode;
     }
 
-    this.#children.set(node.identifier, node);
+    this._children.set(node.identifier, node);
     node.parentNode = this;
   }
 
@@ -129,12 +129,12 @@ export default class Tree {
     let removedNode;
 
     if (needle instanceof Tree) {
-      this.#children.delete(needle.identifier);
+      this._children.delete(needle.identifier);
       removedNode = needle;
     } else {
       for (let child of this.children) {
         if (child.name === needle || child.identifier === needle) {
-          this.#children.delete(child.identifier);
+          this._children.delete(child.identifier);
           removedNode = child;
           break;
         }
@@ -158,24 +158,23 @@ export default class Tree {
       parent = parent.parentNode;
     }
 
-    this.#children.set(node.identifier, node);
+    this._children.set(node.identifier, node);
     node.parentNode = this;
   }
 
-  #getTreeString = (node, spaceCount = 0) => {
+  _getTreeString = (node, spaceCount = 0) => {
     let str = "\n";
 
     node.children.forEach((child) => {
-      str += `${" ".repeat(spaceCount)}|(${child.identifier})${
-        child.name
-      }${this.#getTreeString(child, spaceCount + 2)}`;
+      str += `${" ".repeat(spaceCount)}|(${child.identifier})${child.name
+        }${this._getTreeString(child, spaceCount + 2)}`;
     });
 
     return str;
   };
 
   print() {
-    console.log(`\n${this.name}${this.#getTreeString(this, 2)}`);
+    console.log(`\n${this.name}${this._getTreeString(this, 2)}`);
   }
 
   traverse(cb) {

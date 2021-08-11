@@ -1,4 +1,4 @@
-import { Chess } from "chess.js";
+import Chess from "chess.js";
 import Tree from "./Tree.js";
 
 export default class MoveTree {
