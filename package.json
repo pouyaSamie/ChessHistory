@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "mocha  --recursive --require @babel/register",
-    "build": "yarn rollup -c"
+    "build": "yarn rollup -c",
+    "publish": "npm run build && npm publish"
   },
   "author": "pouya.samie@gmail.com",
   "license": "ISC",
