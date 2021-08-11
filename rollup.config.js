@@ -26,7 +26,7 @@ export default [{
     input: './src/MoveTree.js',
     output: {
         name: 'main',   // for external calls (need exports)
-        file: 'dist/index.min.js',
+        file: 'dist/index.js',
         format: 'umd',
     },
     plugins: pluginOptions,
