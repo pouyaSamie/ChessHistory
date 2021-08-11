@@ -15,14 +15,14 @@ To install the stable version:
 ```
 # NPM
 
-npm install chesshistory
+npm install chess-history
 
 ```
 
 ## Usage
 
 ```javascript
-import ChessHistory from "chesshistory";
+import ChessHistory from "chess-history";
 //initialize Chess History
 let history = new ChessHistory();
 
@@ -67,7 +67,7 @@ root
 each node is an object with name and move so you can get the move like this:
 
 ```javascript
-import ChessHistory from "chesshistory";
+import ChessHistory from "chess-history";
 //initialize Chess History
 let history = new ChessHistory();
 
