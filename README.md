@@ -6,8 +6,6 @@ you can use it to create chess moves and store theme in a tree.
 
 each tree node contains move name and actual move that generated with [Chess.js](https://github.com/jhlywa/chess.js/blob/master/README.md) library
 
-# This library is still under development
-
 ## Installation
 
 To install the stable version:
@@ -109,4 +107,15 @@ let foundNode = history.findMoveById(m1.identifier);
 
 ### Examples
 
-you can see the test files in Test folder for more example
+you can see the test files in the Test folder for more example
+
+### Development
+
+this library is under development and here are future plans:
+* imporve variation traverse
+* pgn with variations
+* Parse pgn to chess-history object
+
+### contribution
+feel free to fork and send PR :)
+
