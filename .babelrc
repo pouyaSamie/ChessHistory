@@ -1,4 +1,20 @@
 {
+  "exclude": "node_modules/**",
+  // ignore .babelrc (if defined) and use options defined here
+
+  // use recommended babel-preset-env without es modules enabled
+  // and with possibility to set custom targets e.g. { node: '8' }
+
   "presets": ["@babel/preset-env"],
-  "plugins": ["@babel/plugin-proposal-class-properties"]
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ]
+  ],
+  // removes comments from output
+  "comments": false
 }

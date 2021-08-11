@@ -1,34 +1,60 @@
-import babel from 'rollup-plugin-babel';
-import resolve from 'rollup-plugin-node-resolve';
-import { uglify } from 'rollup-plugin-uglify';
-import filesize from 'rollup-plugin-filesize';
-import commonjs from 'rollup-plugin-commonjs';
-import progress from 'rollup-plugin-progress';
+// plugins that we are going to use
+import babel from "rollup-plugin-babel";
+import copy from "rollup-plugin-cpy";
+import flow from "rollup-plugin-flow";
+import commonjs from "rollup-plugin-commonjs";
+import nodeResolve from "rollup-plugin-node-resolve";
+// list of plugins used during building process
+const plugins = (targets) => [
+  nodeResolve({ preferBuiltins: false }),
+  // remove flow annotations from output
+  flow(),
 
-let pluginOptions = [
-    resolve({
-        jsnext: true,
-        browser: true
-    }),
-    babel({
-        exclude: 'node_modules/**',
-    }),
-    commonjs(),
-    progress(),
-
-    uglify(),
-    filesize({
-        showGzippedSize: false,
-    })
+  // use Babel to transpile to ES5
+  babel({
+    exclude: "node_modules/**",
+    runtimeHelpers: true,
+  }),
+  commonjs(),
+  // copy Flow definitions from source to destination directory
+  copy({
+    files: ["src/*.flow"],
+    dest: "lib",
+  }),
 ];
 
-export default [{
-    input: './src/MoveTree.js',
+// packages that should be treated as external dependencies, not bundled
+const external = []; // e.g. ['axios']
+
+export default [
+  {
+    // source file / entrypoint
+    input: "src/MoveTree.js",
+    // output configuration
     output: {
-        name: 'main',   // for external calls (need exports)
-        file: 'dist/index.js',
-        format: 'umd',
+      // name visible for other scripts
+      name: "npmLibPackageExample",
+      // output file location
+      file: "lib/index.esm.js",
+      // format of generated JS file, also: esm, and others are available
+      format: "esm",
+      // add sourcemaps
+      sourcemap: true,
     },
-    plugins: pluginOptions,
-}
+    external,
+    // build es modules for node 8
+    plugins: plugins({ node: "8" }),
+  },
+  {
+    input: "src/MoveTree.js",
+    output: {
+      name: "ChessMoveTree",
+      file: "lib/index.js",
+      format: "cjs",
+      sourcemap: true,
+    },
+    external,
+    // build common JS for node 6
+    plugins: plugins({ node: "6" }),
+  },
 ];

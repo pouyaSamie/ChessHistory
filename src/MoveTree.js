@@ -1,5 +1,7 @@
 import { Chess } from "chess.js";
 import Tree from "./Tree.js";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
 export default class MoveTree {
   constructor() {

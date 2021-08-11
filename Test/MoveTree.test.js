@@ -1,4 +1,3 @@
-import "@babel/polyfill";
 import Tree from "./../src/MoveTree.js";
 import assert from "assert";
 
