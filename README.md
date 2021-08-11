@@ -12,17 +12,26 @@ each tree node contains move name and actual move that generated with [Chess.js]
 
 ```javascript
 import Tree from "./../src/MoveTree.js";
+//initialize move tree
 let tree = new MoveTree();
+
+//Add move to main line
 const m1 = tree.addMove("e4");
 tree.addMove("e6");
 tree.addMove("d3");
 tree.addMove("d5");
 tree.addMove("Nd2");
+
+//Add variation for first move
 tree.addMove("d5", m1);
 tree.addMove("f3", m1);
 tree.addMove("e6", m1);
 tree.addMove("Ne2", m1);
+
+//visualize tree
 tree.print();
+
+//show pgn
 console.log(tree.pgn()); // not completed it just prints the main moves
 ```
 
@@ -47,8 +56,14 @@ root
 each node is an object with name and move so you can get the move like this:
 
 ```javascript
+import Tree from "./../src/MoveTree.js";
+//initialize move tree
 let tree = new MoveTree();
+
+//Add move
 const m1 = tree.addMove("e4");
+
+//Get Move Data base on chess.js moves
 console.log(m1.data);
 ```
 
@@ -60,14 +75,18 @@ console.log(m1.data);
 
 ## Find move by it's unique Identifier
 
-each node has unique identifier that you can use `findMoveById` method to get that movoe
+each node has unique identifier that you can use `findMoveById` method to get that move
 
 ```javascript
+//initialize move tree
 let tree = new Tree();
+
+// add some move
 tree.addMove("e4");
 const m1 = tree.addMove("e6");
 tree.addMove("d3");
 
+// find move by it's identifier
 let foundNode = tree.findMoveById(m1.identifier);
 ```
 
