@@ -1,6 +1,6 @@
-# ChessMoveTree
+# Chess History
 
-### ChessMoveTree creates a tree of moves with variations
+### Chess History is a library that creates chess moves history with variations
 
 you can use it to create chess moves and store theme in a tree.
 
@@ -15,37 +15,35 @@ To install the stable version:
 ```
 # NPM
 
-npm install chessmovetree
+npm install chesshistory
 
 ```
 
 ## Usage
 
-' npm i chessmovetree '
-
 ```javascript
-import MoveTree from "chessmovetree";
-//initialize move tree
-let tree = new MoveTree();
+import ChessHistory from "chesshistory";
+//initialize Chess History
+let history = new ChessHistory();
 
 //Add move to main line
-const m1 = tree.addMove("e4");
-tree.addMove("e6");
-tree.addMove("d3");
-tree.addMove("d5");
-tree.addMove("Nd2");
+const m1 = history.addMove("e4");
+history.addMove("e6");
+history.addMove("d3");
+history.addMove("d5");
+history.addMove("Nd2");
 
 //Add variation for first move
-tree.addMove("d5", m1);
-tree.addMove("f3", m1);
-tree.addMove("e6", m1);
-tree.addMove("Ne2", m1);
+history.addMove("d5", m1);
+history.addMove("f3", m1);
+history.addMove("e6", m1);
+history.addMove("Ne2", m1);
 
-//visualize tree
-tree.print();
+//visualize history
+history.print();
 
 //show pgn
-console.log(tree.pgn()); // not completed it just prints the main moves
+console.log(history.pgn()); // not completed it just prints the main moves
 ```
 
 ```
@@ -69,12 +67,12 @@ root
 each node is an object with name and move so you can get the move like this:
 
 ```javascript
-import MoveTree from "chessmovetree";
-//initialize move tree
-let tree = new MoveTree();
+import ChessHistory from "chesshistory";
+//initialize Chess History
+let history = new ChessHistory();
 
 //Add move
-const m1 = tree.addMove("e4");
+const m1 = history.addMove("e4");
 
 //Get Move Data base on chess.js moves
 console.log(m1.data);
@@ -91,16 +89,16 @@ console.log(m1.data);
 each node has unique identifier that you can use `findMoveById` method to get that move
 
 ```javascript
-//initialize move tree
-let tree = new Tree();
+//initialize Chess History
+let history = new ChessHistory();
 
 // add some move
-tree.addMove("e4");
-const m1 = tree.addMove("e6");
-tree.addMove("d3");
+history.addMove("e4");
+const m1 = history.addMove("e6");
+history.addMove("d3");
 
 // find move by it's identifier
-let foundNode = tree.findMoveById(m1.identifier);
+let foundNode = history.findMoveById(m1.identifier);
 ```
 
 ## Run tests

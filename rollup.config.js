@@ -29,7 +29,7 @@ const external = []; // e.g. ['axios']
 export default [
   {
     // source file / entrypoint
-    input: "src/MoveTree.js",
+    input: "src/ChessHistory.js",
     // output configuration
     output: {
       // name visible for other scripts
@@ -46,9 +46,9 @@ export default [
     plugins: plugins({ node: "8" }),
   },
   {
-    input: "src/MoveTree.js",
+    input: "src/ChessHistory.js",
     output: {
-      name: "ChessMoveTree",
+      name: "ChessHistory",
       file: "lib/index.js",
       format: "cjs",
       sourcemap: true,
