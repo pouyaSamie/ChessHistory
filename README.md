@@ -24,7 +24,7 @@ npm install chessmovetree
 ' npm i chessmovetree '
 
 ```javascript
-import Tree from "./../src/MoveTree.js";
+import MoveTree from "chessmovetree";
 //initialize move tree
 let tree = new MoveTree();
 
@@ -69,7 +69,7 @@ root
 each node is an object with name and move so you can get the move like this:
 
 ```javascript
-import Tree from "./../src/MoveTree.js";
+import MoveTree from "chessmovetree";
 //initialize move tree
 let tree = new MoveTree();
 
