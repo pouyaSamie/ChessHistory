@@ -1,6 +1,6 @@
 {
   "name": "chess-history",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Chess History is a library that creates chess moves history with variations",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
