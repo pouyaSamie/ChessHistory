@@ -8,7 +8,20 @@ each tree node contains move name and actual move that generated with [Chess.js]
 
 # This library is still under development
 
+## Installation
+
+To install the stable version:
+
+```
+# NPM
+
+npm install chessmovetree
+
+```
+
 ## Usage
+
+' npm i chessmovetree '
 
 ```javascript
 import Tree from "./../src/MoveTree.js";
