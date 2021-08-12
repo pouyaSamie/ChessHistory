@@ -166,8 +166,9 @@ export default class Tree {
     let str = "\n";
 
     node.children.forEach((child) => {
-      str += `${" ".repeat(spaceCount)}|(${child.identifier})${child.name
-        }${this._getTreeString(child, spaceCount + 2)}`;
+      str += `${" ".repeat(spaceCount)}|(${child.identifier})${
+        child.name
+      }${this._getTreeString(child, spaceCount + 2)}`;
     });
 
     return str;

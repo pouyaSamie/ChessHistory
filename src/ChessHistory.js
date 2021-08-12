@@ -6,7 +6,11 @@ import "regenerator-runtime/runtime.js";
 export default class ChessHistory {
   constructor() {
     this.MoveTree = new Tree("root");
-    this.chess = null;
+    this.chess = new Chess();
+  }
+
+  get Moves() {
+    return this.MoveTree.children;
   }
 
   addMove(notation, parent) {
@@ -23,6 +27,13 @@ export default class ChessHistory {
 
       return newNode;
     }
+  }
+
+  addVariation(notation, parent) {
+    var moveToPlay = this.gteBranchFromParent(parent);
+    let newMove = this.createNewChessMove(notation, moveToPlay);
+
+    return parent.createChildNode(notation, newMove);
   }
 
   getMainMoves() {
@@ -48,22 +59,37 @@ export default class ChessHistory {
     return children;
   }
 
-  addVariation(notation, parent) {
-    var moveToPlay = this.getBranch(parent);
+  gteBranchFromParent(parent) {
+    let branch = [];
 
-    let newMove = this.createNewChessMove(notation, moveToPlay);
-
-    return parent.createChildNode(notation, newMove);
-  }
-  getBranch(node) {
-    const branch = node.children;
-    let parents = node.getAllParents();
-    parents.forEach((p) => {
+    const currentSiblings = parent.children;
+    currentSiblings.forEach((siblings) => {
+      branch.push(siblings);
+    });
+    branch = branch.reverse();
+    var ancectors = this.getBranch(parent);
+    ancectors.forEach((p) => {
       branch.push(p);
     });
 
-    branch.reverse().push(node);
     return branch.reverse();
+  }
+
+  getBranch(move) {
+    let branch = [];
+    const getsiblings = (move, branch) => {
+      if (!move) return;
+      if (move.name == "root") return;
+      var siblings = move.parentNode.children;
+      var currentMoveIndex = siblings.findIndex((x) => x.name === move.name);
+      var s = siblings.slice(0, currentMoveIndex + 1).reverse();
+      s.forEach((m) => {
+        branch.push(m);
+      });
+      getsiblings(move.parentNode, branch);
+    };
+    getsiblings(move, branch);
+    return branch;
   }
 
   pgn() {

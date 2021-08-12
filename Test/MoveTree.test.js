@@ -42,14 +42,28 @@ describe("MoveHistory", function () {
       history.addMove("f3", m1);
       history.addMove("e6", m1);
       history.addMove("Ne2", m1);
-      history.print();
-
       let variations = history.getVariation(m1.identifier);
       assert.strictEqual(variations[2].name, "e6");
     });
   });
 
-  describe("#finMoveById()", function () {
+  describe("#getBranch()", function () {
+    it("should get branch of variation", function () {
+      let history = new ChessHistory();
+      history.addMove("e4");
+      history.addMove("e5");
+      history.addMove("d3");
+      const m1 = history.addMove("d5");
+
+      history.addMove("f4", m1);
+      history.addMove("f6", m1);
+      var m2 = history.addMove("f5", m1);
+      let branch = history.getBranch(m2);
+      assert.strictEqual(branch.length, 7);
+    });
+  });
+
+  describe("#findMoveById()", function () {
     it("should finds move by id ", function () {
       let history = new ChessHistory();
       history.addMove("e4");
