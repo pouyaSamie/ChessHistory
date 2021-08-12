@@ -62,17 +62,16 @@ export default class ChessHistory {
   gteBranchFromParent(parent) {
     let branch = [];
 
-    const currentSiblings = parent.children;
-    currentSiblings.forEach((siblings) => {
-      branch.push(siblings);
-    });
-    branch = branch.reverse();
     var ancectors = this.getBranch(parent);
     ancectors.forEach((p) => {
       branch.push(p);
     });
 
-    return branch.reverse();
+    const currentSiblings = parent.children;
+    currentSiblings.forEach((siblings) => {
+      branch.push(siblings);
+    });
+    return branch;
   }
 
   getBranch(move) {
@@ -89,7 +88,7 @@ export default class ChessHistory {
       getsiblings(move.parentNode, branch);
     };
     getsiblings(move, branch);
-    return branch;
+    return branch.reverse();
   }
 
   pgn() {
