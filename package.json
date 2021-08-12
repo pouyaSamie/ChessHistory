@@ -1,6 +1,6 @@
 {
-  "name": "chesshistory",
-  "version": "0.2.2",
+  "name": "chess-history",
+  "version": "0.2.4",
   "description": "Chess History is a library that creates chess moves history with variations",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "mocha  --recursive --require @babel/register",
-    "build": "yarn rollup -c"
+    "build": "yarn rollup -c",
+    "pub": "npm run build && npm publish"
   },
   "author": "pouya.samie@gmail.com",
   "license": "ISC",
