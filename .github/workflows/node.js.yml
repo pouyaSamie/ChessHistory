@@ -3,7 +3,7 @@ name: chess-history
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   test:
