@@ -102,8 +102,6 @@ you can see the test files in the Test folder for more example
 
 this library is under development and here are future plans:
 
-- imporve variation traverse
-- pgn with variations
 - Parse pgn to chess-history object
 
 ### contribution
