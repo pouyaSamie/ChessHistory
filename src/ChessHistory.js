@@ -26,9 +26,9 @@ export default class ChessHistory {
   findMoveById(id) {
     let foundNode = null;
 
-    this.History.traverse((node) => {
-      if (node.id === id) {
-        foundNode = node;
+    this.History.traverse((move) => {
+      if (move.id === id) {
+        foundNode = move;
         return true;
       }
     });

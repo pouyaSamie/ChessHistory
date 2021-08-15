@@ -22,45 +22,28 @@ npm install chess-history
 ```javascript
 import ChessHistory from "chess-history";
 //initialize Chess History
-let history = new ChessHistory();
+var history = new ChessHistory();
 
 //Add move to main line
-const m1 = history.addMove("e4");
-history.addMove("e6");
-history.addMove("d3");
-history.addMove("d5");
-history.addMove("Nd2");
+const d3 = history.addMove("e4").addMove("e5").addMove("d3");
 
-//Add variation for first move
-history.addMove("d5", m1);
-history.addMove("f3", m1);
-history.addMove("e6", m1);
-history.addMove("Ne2", m1);
+//Continue Main Line
+d3.addMove("d5").addMove("Nf3");
 
-//visualize history
-history.print();
+// Add Variation
+d3.addMove("Nf6").addMove("f4").addMove("g6").addMove("Nc3");
 
 //show pgn
-console.log(history.pgn()); // not completed it just prints the main moves
+console.log(history.pgn());
 ```
 
 ```
 # result:
-root
-  |(1628625486680)e4
-    |(1628625486685)d5
-    |(1628625486686)f3
-    |(1628625486687)e6
-    |(1628625486688)Ne2
-  |(1628625486681)e6
-  |(1628625486682)d3
-  |(1628625486683)d5
-  |(1628625486684)Nd2
+1. e4 e5 2. d3 d5 (2... Nf6 3. f4 g6 4. Nc3) 3. Nf3 *
 
-  1. e4 d5 2. f3 e6 3. Ne2
 ```
 
-## Get move data
+## Get move info
 
 each node is an object with name and move so you can get the move like this:
 
@@ -72,8 +55,8 @@ let history = new ChessHistory();
 //Add move
 const m1 = history.addMove("e4");
 
-//Get Move Data base on chess.js moves
-console.log(m1.data);
+//Get Move info base on chess.js moves
+console.log(m1.info);
 ```
 
 ```
@@ -82,21 +65,27 @@ console.log(m1.data);
 
 ```
 
-## Find move by it's unique Identifier
+## Find move by it's unique Id
 
-each node has unique identifier that you can use `findMoveById` method to get that move
+each node has unique Id that you can use `findMoveById` method to get that move
 
 ```javascript
 //initialize Chess History
 let history = new ChessHistory();
 
 // add some move
-history.addMove("e4");
-const m1 = history.addMove("e6");
-history.addMove("d3");
+const e6 = history.addMove("e4").addMove("e6");
+e6.addMove("d3");
 
-// find move by it's identifier
-let foundNode = history.findMoveById(m1.identifier);
+// find move by it's id
+let foundNode = history.findMoveById(e6.id);
+console.log(foundNode.notation);
+```
+
+```
+# result:
+    e6
+
 ```
 
 ## Run tests
@@ -112,10 +101,11 @@ you can see the test files in the Test folder for more example
 ### Development
 
 this library is under development and here are future plans:
-* imporve variation traverse
-* pgn with variations
-* Parse pgn to chess-history object
+
+- imporve variation traverse
+- pgn with variations
+- Parse pgn to chess-history object
 
 ### contribution
-feel free to fork and send PR :)
 
+feel free to fork and send PR :)
