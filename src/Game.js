@@ -1,4 +1,4 @@
-import Move from "./move.js";
+import Move from "./Move.js";
 
 export default class Game {
   constructor() {
@@ -36,11 +36,7 @@ function hello() {
   d3.addMove("Nf6").addMove("f4").addMove("g6").addMove("Nc3");
   d3.addMove("Qe7");
 
-  console.log(
-    game.History.pgn((item) => {
-      console.log(item);
-    })
-  );
+  console.log(game.History.pgn());
   game.History.print();
 }
 

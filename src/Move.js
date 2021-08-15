@@ -108,25 +108,47 @@ export default class Move {
 
   pgn(callback) {
     var queue = [this];
+    let pgn = "";
+    callback = (item) => {
+      pgn += item;
+    };
+    this.printChilds(queue, callback);
+    return pgn + " *";
+  }
+
+  printChilds(queue, callback) {
     var n;
 
     while (queue.length > 0) {
+      var count = queue.length;
       n = queue.shift();
       callback(n.toString());
+      if (count > 1) {
+        while (queue.length > 0) {
+          let v = queue.shift();
+          this.printVariations(v, callback);
+        }
+      }
 
-      queue.push(n.mainMove());
-
-      if (!n.variations()) return;
-
-      n.variations().forEach((item) => {
-        item.pgn(callback);
-      });
+      if (!n.Moves) return;
+      for (let index = 0; index < n.Moves.length; index++) {
+        queue.push(n.Moves[index]);
+      }
     }
+  }
+
+  printVariations(move, callback) {
+    var queue = [move];
+    let moveOrder = `${Math.ceil(move.depth / 2)}`;
+    var blackVariation = move.info.color == "b" ? "..." : "";
+    callback(" (" + moveOrder + blackVariation);
+    this.printChilds(queue, callback);
+    callback(")");
   }
 
   toString() {
     let moveOrder = `${Math.ceil(this.depth / 2)}`;
-    let moveNumber = this.info.color == "b" ? "" : `${moveOrder}.`;
-    return `${moveNumber} ${this.notation} `;
+    let moveNumber = this.info.color == "b" ? "" : ` ${moveOrder}.`;
+    return `${moveNumber} ${this.notation}`;
   }
 }
