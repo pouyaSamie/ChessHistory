@@ -5,10 +5,8 @@ describe("MoveHistory", function () {
   describe("AddMoveToMainLoe()", function () {
     it("should add Move in main line", function () {
       let history = new ChessHistory();
-      history.addMoveToMainLine("e4");
-      history.addMoveToMainLine("e5");
-      history.addMoveToMainLine("Nf3");
-      history.addMoveToMainLine("Nf6");
+      history.addMove("e4").addMove("e5").addMove("Nf3").addMove("Nf6");
+      console.log(history.getMainLine());
       assert.strictEqual(history.getMainLine().length, 4);
     });
   });
@@ -16,14 +14,14 @@ describe("MoveHistory", function () {
   describe("#addVariationForMove()", function () {
     it("should create New Variation", function () {
       let history = new ChessHistory();
-      history.addMoveToMainLine("e4");
-      history.addMoveToMainLine("e6");
-      var d3 = history.addMoveToMainLine("d3");
-      history.addMoveToMainLine("d5");
-      history.addNewVariation(d3, "Nf6");
-      history.addNewVariation(d3, "Bc5");
-      history.addNewVariation(d3, "Qe7");
-      history.addMoveToMainLine("Nf3");
+      history.addMove("e4");
+      history.addMove("e6");
+      var d3 = history.addMove("d3");
+      history.addMove("d5");
+      history.addVariation(d3, "Nf6");
+      history.addVariation(d3, "Bc5");
+      history.addVariation(d3, "Qe7");
+      history.addMove("Nf3");
       assert.strictEqual(d3.children.length, 3);
     });
   });
@@ -31,14 +29,14 @@ describe("MoveHistory", function () {
   describe("#AddMoveToVariation()", function () {
     it("should get variation of a move ", function () {
       let history = new ChessHistory();
-      history.addMoveToMainLine("e4");
-      history.addMoveToMainLine("e6");
-      var d3 = history.addMoveToMainLine("d3");
-      history.addMoveToMainLine("d5");
-      var Nf6 = history.addNewVariation(d3, "Nf6");
-      history.addNewVariation(d3, "Bc5");
-      history.addNewVariation(d3, "Qe7");
-      history.addMoveToMainLine("Nf3");
+      history.addMove("e4");
+      history.addMove("e6");
+      var d3 = history.addMove("d3");
+      history.addMove("d5");
+      var Nf6 = history.addVariation(d3, "Nf6");
+      history.addVariation(d3, "Bc5");
+      history.addVariation(d3, "Qe7");
+      history.addMove("Nf3");
       history.AddMoveToVariation(Nf6, "f4");
       history.AddMoveToVariation(Nf6, "g6");
       history.AddMoveToVariation(Nf6, "Nc3");

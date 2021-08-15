@@ -39,6 +39,9 @@ export default class Move {
     }
     return depth;
   }
+  get MainMove() {
+    return this.Moves[0];
+  }
 
   _createChessMove() {
     let chess = new Chess();
@@ -59,10 +62,6 @@ export default class Move {
     }
 
     return newMove;
-  }
-
-  mainMove() {
-    return this.Moves[0];
   }
 
   variations() {
