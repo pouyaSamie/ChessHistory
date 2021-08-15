@@ -20,6 +20,9 @@ export default class ChessHistory {
     return mainLine;
   }
 
+  pgn() {
+    return this.History.pgn();
+  }
   findMoveById(id) {
     let foundNode = null;
 

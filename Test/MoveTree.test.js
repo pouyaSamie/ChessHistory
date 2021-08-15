@@ -6,107 +6,59 @@ describe("MoveHistory", function () {
     it("should add Move in main line", function () {
       let history = new ChessHistory();
       history.addMove("e4").addMove("e5").addMove("Nf3").addMove("Nf6");
-      console.log(history.getMainLine());
       assert.strictEqual(history.getMainLine().length, 4);
     });
   });
 
   describe("#addVariationForMove()", function () {
     it("should create New Variation", function () {
-      let history = new ChessHistory();
-      history.addMove("e4");
-      history.addMove("e6");
-      var d3 = history.addMove("d3");
-      history.addMove("d5");
-      history.addVariation(d3, "Nf6");
-      history.addVariation(d3, "Bc5");
-      history.addVariation(d3, "Qe7");
-      history.addMove("Nf3");
-      assert.strictEqual(d3.children.length, 3);
+      var history = new ChessHistory();
+      var d3 = history.addMove("e4").addMove("e5").addMove("d3");
+
+      d3.addMove("d5").addMove("Nf3");
+      let f4 = d3.addMove("Bc5").addMove("f4");
+      f4.addMove("d6");
+      f4.addMove("b6");
+
+      d3.addMove("Nf6").addMove("f4").addMove("g6").addMove("Nc3");
+      d3.addMove("Qe7");
+      assert.strictEqual(d3.Moves.length, 4);
     });
   });
 
-  describe("#AddMoveToVariation()", function () {
-    it("should get variation of a move ", function () {
-      let history = new ChessHistory();
-      history.addMove("e4");
-      history.addMove("e6");
-      var d3 = history.addMove("d3");
-      history.addMove("d5");
-      var Nf6 = history.addVariation(d3, "Nf6");
-      history.addVariation(d3, "Bc5");
-      history.addVariation(d3, "Qe7");
-      history.addMove("Nf3");
-      history.AddMoveToVariation(Nf6, "f4");
-      history.AddMoveToVariation(Nf6, "g6");
-      history.AddMoveToVariation(Nf6, "Nc3");
-      history.print();
-      assert.strictEqual(Nf6.children.length, 3);
+  describe("#findMoveById()", function () {
+    it("should finds move by id ", function () {
+      var history = new ChessHistory();
+      var d3 = history.addMove("e4").addMove("e5").addMove("d3");
+
+      d3.addMove("d5").addMove("Nf3");
+      let f4 = d3.addMove("Bc5").addMove("f4");
+      f4.addMove("d6");
+      f4.addMove("b6");
+
+      d3.addMove("Nf6").addMove("f4").addMove("g6").addMove("Nc3");
+      d3.addMove("Qe7");
+
+      let foundNode = history.findMoveById(f4.id);
+      assert.strictEqual(foundNode.notation, f4.notation);
     });
   });
 
-  // describe("#getVariation()", function () {
-  //   it("should get variation of a move ", function () {
-  //     let history = new ChessHistory();
-  //     const m1 = history.addMove("e4");
-  //     history.addMove("e6");
-  //     history.addMove("d3");
-  //     history.addMove("d5");
-  //     history.addMove("Nd2");
-  //     history.addMove("d5", m1);
-  //     history.addMove("f3", m1);
-  //     history.addMove("e6", m1);
-  //     history.addMove("Ne2", m1);
-  //     let variations = history.getVariation(m1.identifier);
-  //     assert.strictEqual(variations[2].name, "e6");
-  //   });
-  // });
+  describe("#Pgn()", function () {
+    it("it should generate correct pgn ", function () {
+      var expectedPgn =
+        "1. e4 e5 2. d3 d5 (2... Bc5 3. f4 d6 (3... b6)) (2... Nf6 3. f4 g6 4. Nc3) (2... Qe7) 3. Nf3 *";
+      var history = new ChessHistory();
+      var d3 = history.addMove("e4").addMove("e5").addMove("d3");
 
-  // describe("#getBranch()", function () {
-  //   it("should get branch of variation", function () {
-  //     let history = new ChessHistory();
-  //     history.addMove("e4");
-  //     history.addMove("e5");
-  //     history.addMove("d3");
-  //     const m1 = history.addMove("d5");
+      d3.addMove("d5").addMove("Nf3");
+      let f4 = d3.addMove("Bc5").addMove("f4");
+      f4.addMove("d6");
+      f4.addMove("b6");
 
-  //     history.addMove("f4", m1);
-  //     history.addMove("f6", m1);
-  //     var m2 = history.addMove("f5", m1);
-  //     history.MoveTree.print();
-  //     let branch = history.getBranch(m2);
-  //     assert.strictEqual(branch.length, 7);
-  //   });
-  // });
-
-  // describe("#findMoveById()", function () {
-  //   it("should finds move by id ", function () {
-  //     let history = new ChessHistory();
-  //     history.addMove("e4");
-  //     const m1 = history.addMove("e6");
-  //     history.addMove("d3");
-
-  //     let foundNode = history.findMoveById(m1.identifier);
-  //     assert.strictEqual(foundNode.name, "e6");
-  //   });
-  // });
-
-  // describe("#addComplexVariation()", function () {
-  //   it("should add Move in main line and add multilevel variation ", function () {
-  //     let history = new ChessHistory();
-  //     history.addMove("e4");
-  //     history.addMove("e5");
-  //     let mainLine = history.addMove("d3");
-  //     history.addMove("d5");
-
-  //     let firstMoveOfVariation = history.addMove("Bc5", mainLine);
-  //     history.addMove("f4", firstMoveOfVariation);
-
-  //     let secondVariation = history.addMove("Nf6", mainLine);
-  //     history.addMove("f4", secondVariation);
-
-  //     history.MoveTree.print();
-  //     assert.strictEqual(4, 4);
-  //   });
-  // });
+      d3.addMove("Nf6").addMove("f4").addMove("g6").addMove("Nc3");
+      d3.addMove("Qe7");
+      assert.strictEqual(expectedPgn, history.pgn());
+    });
+  });
 });

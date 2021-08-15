@@ -112,7 +112,7 @@ export default class Move {
       pgn += item;
     };
     this.printChilds(queue, callback);
-    return pgn + " *";
+    return pgn.trim() + " *";
   }
 
   printChilds(queue, callback) {
