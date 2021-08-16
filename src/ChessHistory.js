@@ -21,6 +21,7 @@ export default class ChessHistory {
   }
 
   pgn() {
+    if (!this.History) return "";
     return this.History.pgn();
   }
   findMoveById(id) {
