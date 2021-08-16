@@ -111,11 +111,11 @@ export default class Move {
     callback = (item) => {
       pgn += item;
     };
-    this.printChilds(queue, callback);
+    this.getChilds(queue, callback);
     return pgn.trim() + " *";
   }
 
-  printChilds(queue, callback) {
+  getChilds(queue, callback) {
     var n;
 
     while (queue.length > 0) {
@@ -125,7 +125,7 @@ export default class Move {
       if (count > 1) {
         while (queue.length > 0) {
           let v = queue.shift();
-          this.printVariations(v, callback);
+          this.getVariations(v, callback);
         }
       }
 
@@ -136,12 +136,12 @@ export default class Move {
     }
   }
 
-  printVariations(move, callback) {
+  getVariations(move, callback) {
     var queue = [move];
     let moveOrder = `${Math.ceil(move.depth / 2)}`;
     var blackVariation = move.info.color == "b" ? "..." : "";
     callback(" (" + moveOrder + blackVariation);
-    this.printChilds(queue, callback);
+    this.getChilds(queue, callback);
     callback(")");
   }
 
