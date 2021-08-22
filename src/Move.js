@@ -60,7 +60,7 @@ export default class Move {
       message += ` and the move ${this.notation} is invalid`;
       throw new Error(message);
     }
-
+    newMove.Fen = chess.fen();
     return newMove;
   }
 
@@ -138,8 +138,9 @@ export default class Move {
 
   getVariations(move, callback) {
     var queue = [move];
-    let moveOrder = `${Math.ceil(move.depth / 2)}`;
-    var blackVariation = move.info.color == "b" ? "..." : "";
+    var isBlack = move.info.color == "b";
+    let moveOrder = isBlack ? `${Math.ceil(move.depth / 2)}` : "";
+    var blackVariation = isBlack ? "..." : "";
     callback(" (" + moveOrder + blackVariation);
     this.getChilds(queue, callback);
     callback(")");
@@ -147,7 +148,7 @@ export default class Move {
 
   toString() {
     let moveOrder = `${Math.ceil(this.depth / 2)}`;
-    let moveNumber = this.info.color == "b" ? "" : ` ${moveOrder}.`;
-    return `${moveNumber} ${this.notation}`;
+    let moveNumber = this.info.color == "b" ? "" : `${moveOrder}.`;
+    return `${moveNumber} ${this.notation} `;
   }
 }
