@@ -61,7 +61,7 @@ console.log(m1.info);
 
 ```
 # result:
-    { color: 'w', from: 'e2', to: 'e4', flags: 'b', piece: 'p', san: 'e4' }
+   {color: 'w', from: 'e2', to: 'e4', flags: 'b', piece: 'p', san: 'e4', Fen: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1'}
 
 ```
 
@@ -98,12 +98,18 @@ console.log(foundNode.notation);
 
 you can see the test files in the Test folder for more example
 
-### Development
-
-this library is under development and here are future plans:
-
-- Parse pgn to chess-history object
-
 ### contribution
 
 feel free to fork and send PR :)
+
+# Changelog
+
+## [1.3.3] - 2021-08-22
+
+### Added
+
+- `Fen` added to move info
+
+### Fixed
+
+- `Pgn`, fixed for white moves
