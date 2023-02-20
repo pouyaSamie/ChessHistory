@@ -1,5 +1,8 @@
 # Chess History
 
+# This repository has been Archived as Lichess now has full open source PGN_Viewr
+https://github.com/lichess-org/pgn-viewer
+
 ### Chess History is a library that creates chess moves history with variations
 
 you can use it to create chess moves and store theme in a tree.
